@@ -340,10 +340,10 @@ glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 完成VBO后，我们可以解除它和VAO的绑定\(将它们绑定到0\)
 
 ```java
-// Unbind the VBO
+// Unbind the VBO 解除VBO绑定
 glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-// Unbind the VAO
+// Unbind the VAO 关闭VAO
 glBindVertexArray(0);
 ```
 

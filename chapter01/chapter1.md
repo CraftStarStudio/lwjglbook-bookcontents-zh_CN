@@ -1,26 +1,26 @@
-# First steps
+# 第一步
 
-In this book we will learn the principal techniques involved in developing 3D games. We will develop our samples in Java and we will use the Lightweight Java Game Library \([LWJGL](http://www.lwjgl.org/)\). The LWJGL library enables the access to low-level APIs \(Application Programming Interface\) such as OpenGL.
+我们将会在这本书中学会一些在开发 3D 游戏当中涉及到的一些最主要的技术. 我们将会使用 Java 与 Lightweight Java Game Library \([LWJGL](http://www.lwjgl.org/)\) 来开发我们的示例项目. LWJGL 将允许你访问一些类似于 OpenGL 的底层 API.
 
-LWJGL is a low level API that acts like a wrapper around OpenGL. If your idea is to start creating 3D games in a short period of time maybe you should consider other alternatives like  \[JmonkeyEngine\]. By using this low level API you will have to go through many concepts and write lots of lines of code before you see the results. The benefit of doing it this way is that you will get a much better understanding of 3D graphics and also you can get better control.
+LWJGL 是一个像 OpenGL 的包装器的底层 API.如果你想在短时间内开始制作 3D 游戏的话, 或许你应当考虑其他的 API,比如 \[JmonkeyEngine\]. 要使用这些底层API, 你将需要理解许多概念并写下许多代码来获得你想要的结果, 这样做的好处就是, 你将会更好地理解与掌握 3D 图形系统.
 
-As said in the previous paragraphs we will be using Java for this book. We will be using Java 10, so you need to download the Java SDK from Oracle’s pages. Just choose the installer that suits your Operating System and install it. This book assumes that you have a moderate understanding of the Java language.
+我们在先前的段落里已经提到了这本书将会使用 Java 进行开发. 我们将会使用 Java 10, 所以你应该从 Oracle 公司的网页下载 Java SDK (软件开发工具包). 选择适合你系统的版本并安装即可. 这本书假定你已经对 Java 语言拥有一定程度的了解.
 
-You may use the Java IDE you want in order to run the samples. You can download IntelliJ IDEA which has good support for Java 10. Since Java 10 is only available, by now, for 64 bits platforms, remember to download the 64 bits version of IntelliJ. IntelliJ provides a free open source version, the Community version, which you can download from here: [https://www.jetbrains.com/idea/download/](https://www.jetbrains.com/idea/download/ "Intellij").
+你需要使用支持 Java 的 IDE (集成开发环境) 来运行示例项目. 你可以下载对 Java 10 拥有超棒支持的 IntelliJ. 到目前为止, Java 10 仅支持 64 位平台, 所以请一定要下载 IntelliJ 的 64 位版本. IntelliJ提供了一个开源版本, 即社区版, 你可从此处下载: [https://www.jetbrains.com/idea/download/](https://www.jetbrains.com/idea/download/ "Intellij").
 
 ![](/chapter01/intellij.png)
 
-For building our samples we will be using [Maven](https://maven.apache.org/). Maven is already integrated in most IDEs and you can directly open the different samples inside them. Just open the folder that contains the chapter sample and IntelliJ will detect that it is a maven project.
+我们将使用 [Maven](https://maven.apache.org/) 来构建我们的示例项目. Maven 已经被集成进了大多数 IDE, 所以你可以直接打开不同的示例文件. 只需要打开包含该章节示例的文件夹, IntelliJ 就会检测到这是一个 Maven 项目.
 
 ![](/chapter01/maven_project.png)
 
-Maven builds projects based on an XML file named `pom.xml` \(Project Object Model\) which manages project dependencies \(the libraries you need to use\) and the steps to be performed during the build process. Maven follows the principle of convention over configuration, that is, if you stick to the standard project structure and naming conventions the configuration file does not need to explicitly say where source files are or where compiled classes should be located.
+通过 Maven 构建的项目是基于一个叫做 `pom.xml` \(Project Object Model\) 的 XML 文件上的. 这个文件用来管理项目的依赖关系与构建过程中所要进行的步骤. Maven 遵循约定大于配置的原则, 这就是说, 如果你遵循标准项目结构与命名规范, 那么你将没有必要在配置文件中加入源文件和编译类的位置.
 
-This book does not intend to be a maven tutorial, so please find the information about it in the web in case you need it.  The source code folder defines a parent project which defines the plugins to be used and collects the versions of the libraries employed.
+这本书并未打算变成一个 Maven 的教程, 所以你可以在你需要更多信息的情况下在网上自行查找. 包含源代码的文件夹定义了父级项目, 即用来定义插件的使用与收集被使用的库的版本的项目.
 
-LWJGL 3.1 introduced some changes in the way that the project is built. Now the base code is much more modular, and we can be more selective in the packages that we want to use instead of using a giant monolithic jar file. This comes at a cost: You now need to carefully specify the dependencies one by one. But the [download](https://www.lwjgl.org/download) page includes a fancy script that generates the pom file for you. In our case, we will just be using GLFW and OpenGL bindings. You can check what the pom file looks like in the source code.
+LWJGL 3.1 第一次在项目构建方式上拥有了一些变化. 现在核心代码已经变得更加模块化, 从而使得我们可以在包管理器中随意选择我们需要的包以替代一个庞大，单一，臃肿不堪的jar文件. 但这也需要付出一个代价: 你需要更仔细地一个个指定依赖关系. 但是不用担心, [下载](https://www.lwjgl.org/download) 页面包含了一个可以帮你生成 pom 文件的脚本. 对于我们而言, 这就意味着我们只需要使用 GLFW 与 OpenGl 的绑定 API 就可以了. 你可以在源代码中看看 pom 文件是什么样的.
 
-The LWJGL platform dependency already takes care of unpacking native libraries for your platform, so there's no need to use other plugins \(such as `mavennatives`\). We just need to set up three profiles to set a property that will configure the LWJGL platform. The profiles will set up the correct values of that property for Windows, Linux and Mac OS families.
+LWJGL 的平台依赖关系已经被你平台的原生解包库所掌管, 所以你没有必要去使用其他的插件 \(就例如 `mavennatives`\). 我们只需要准备三个配置文件, 这样就可以设置能够管理 LWJGL 平台的属性了. 这些配置文件将会为 Windows, Linux 和 Mac OS 系列准备合适的属性值.
 
 ```xml
     <profiles>
@@ -60,7 +60,7 @@ The LWJGL platform dependency already takes care of unpacking native libraries f
     </profiles>
 ```
 
-Inside each project, the LWJGL platform dependency will use the correct property established in the profile for the current platform.
+在每个项目中, LWJGL 的平台依赖将会使用正确的属性为当前平台的配置文件进行正确的设置.
 
 ```xml
         <dependency>
@@ -71,17 +71,17 @@ Inside each project, the LWJGL platform dependency will use the correct property
         </dependency>
 ```
 
-Besides that, every project generates a runnable jar \(one that can be executed by typing java -jar name\_of\_the\_jar.jar\). This is achieved by using the maven-jar-plugin which creates a jar with a `MANIFEST.MF` file with the correct values. The most important attribute for that file is `Main-Class`, which sets the entry point for the program. In addition, all the dependencies are set as entries in the `Class-Path` attribute for that file. In order to execute it on another computer, you just need to copy the main jar file and the lib directory \(with all the jars included there\) which are located under the target directory.
+除此之外, 每个项目都会生成一个可运行的 jar 文件 \(可通过输入 java -jar name\_of\_the\_jar.jar\ 来运行). 其是通过使用可以生成带有正确属性值与 `MANIFEST.MF` 文件的 maven-jar-plugin 插件来打包的. 该文件最重要的一点就是 `Main-Class` (主类), 其设置了程序的进入点. 另外, 所有依赖关系都被设置成了在 `Class-Path` (类路径) 中的进入点. 为了能够在其他计算机中运行这一文件, 只需要复制这个主要的 jar 文件和在目标目录下的 lib 目录 \(包含了所有 jar 文件\).
 
-The jars that contain LWJGL classes, also contain the native libraries. LWJGL will also take care of extracting them and adding them to the path where the JVM will look for libraries.
+这些 jar 文件包含了 LWJGL 的类, 也包含了一些原生库. LWJGL 也会解压他们, 并将他们加入 JVM 寻找库的环境变量中去.
 
-Chapter 1 source code is taken directly from the getting started sample in the LWJGL site \([http://www.lwjgl.org/guide](http://www.lwjgl.org/guide)\). You will see that we are not using Swing or JavaFX as our GUI library. Instead of that we are using [GLFW](www.glfw.org) which is a library to handle GUI components \(Windows, etc.\) and events \(key presses, mouse movements, etc.\) with an OpenGL context attached in a straightforward way. Previous versions of LWJGL provided a custom GUI API but, for LWJGL 3, GLFW is the preferred windowing API.
+第一章的源代码是直接从 LWGPL 的官方站点 \([http://www.lwjgl.org/guide](http://www.lwjgl.org/guide)\) 上得到的. 你可能会注意到, 我们并未使用 Swing 或是 JavaFX 当做我们的 GUI 库. 取而代之的是 [GLFW](www.glfw.org): 一个可以通过 OpenGL 上下文管理 GUI 组件 \(Windows等\) 与 事件 \(按键, 鼠标的移动等\) 的库. 先前的 LWJGL 版本提供自定义 GUI API, 但是在 LWJGL 3 中, 我们更倾向于使用视窗化的 API.
 
-The samples source code is very well documented and straightforward so we won’t repeat the comments here.
+这个开发示例已经经过了十分直白而又简明的排版, 所以我们不会再次重复注释了.
 
-If you have your environment correctly set up you should be able to execute it and see a window with a red background.
+如果你成功地设置好了你的开发环境, 你应该可以运行这个程序并看到一个带有红色背景的窗口.
 
-![Hello World](hello_world.png)
+![Hello World](./hello_world.png)
 
-**The source code of this book is published in **[**GitHub**](https://github.com/lwjglgamedev/lwjglbook)**.**
+**这本书的源代码已经发布到了 **[**GitHub**](https://github.com/lwjglgamedev/lwjglbook)**.**
 

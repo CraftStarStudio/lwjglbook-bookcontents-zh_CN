@@ -1,14 +1,14 @@
-# Textures
+# 材质
 
-## Create a 3D cube
+## 创造一个 3D 立方体
 
-In this chapter we will learn how to load textures and use them in the rendering process. In order to show all the concepts related to textures we will transform the quad that we have been using in previous chapters into a 3D cube. With the code base we have created, in order to draw a cube we just need to correctly define the coordinates of a cube and it should be drawn correctly.
+在这一章中我们将会学习怎样在渲染过程中加载与使用材质. 为了展示所有的与材质有关联的概念, 我们将会把我们在之前的章节中使用的四方形变换成一个 3D 立方体. 通过我们构建的基本代码, 我们得以正确地定义一个立方体的坐标, 然后他就会正确地被画出来了.
 
-In order to draw a cube we just need to define eight vertices.
+要画一个立方体, 只需定义 8 个定点.
 
 ![Cube coords](cube_coords.png)
 
-So the associated coordinates array will be like this:
+所以这一互相关联的坐标数组应该像下面这样:
 
 ```java
 float[] positions = new float[] {
@@ -31,7 +31,7 @@ float[] positions = new float[] {
 };
 ```
 
-Of course, since we have 4 more vertices we need to update the array of colours. Just repeat the first four items by now.
+当然了, 既然我们已经有 4 个以上的顶点了, 我们就需要更新那些颜色数组. 现在我们只要把先前的四个项目重复一遍就行了.
 
 ```java
 float[] colours = new float[]{
@@ -46,7 +46,7 @@ float[] colours = new float[]{
 };
 ```
 
-Finally, since a cube is made of six faces we need to draw twelve triangles \(two per face\), so we need to update the indices array. Remember that triangles must be defined in counter-clock wise order. If you do this by hand, is easy to make mistakes. Always put the face that you want to define indices for in front of you. Then, identify the vertices and draw the triangles in counter-clock wise order.
+最后, 因为一个立方体是由六个面组成的, 这意味着我们需要画上 12 个三角形 (每面 2 个). 所以我们需要更新指数数组. 请记住, 这些三角形应该按照逆时针顺序定义. 如果你人工操作的话, 很容易出错. 请始终把你想定义索引的面放在面前. 然后, 确定顶点并按逆时针顺序绘制三角形即可.
 
 ```java
 int[] indices = new int[] {
@@ -65,7 +65,7 @@ int[] indices = new int[] {
 };
 ```
 
-In order to better view the cube we will change code that rotates the model in the `DummyGame` class to rotate along the three axes.
+为了更好地查看这个立方体, 我们把 `DummyGame` 类中的旋转模型的代码改成沿三个轴旋转的.
 
 ```java
 // Update rotation angle
@@ -76,27 +76,28 @@ if ( rotation > 360 ) {
 gameItem.setRotation(rotation, rotation, rotation);
 ```
 
-And that’s all. We are now able to display a spinning 3D cube. You can now compile and run your example and you will obtain something like this.
+这就是全部了. 我们现在得以显示一个旋转的 3D 立方体了. 你现在可以编译运行你的项目, 然后你就会看到像这样旋转着的物体.
 
 ![Cube with no depth tests](cube_no_depth_test.png)
 
-There is something weird with this cube. Some faces are not being painted correctly. What is happening? The reason why the cube has this aspect is that the triangles that compose the cube are being drawn in a sort of random order. The pixels that are far away should be drawn before pixels that are closer. This is not happening right now and in order to do that we must enable depth testing.
+但是这个立方体看起来有点诡异, 一些面并未正确地绘制. 发生了什么? 实际上, 之所以会有这种情况, 是因为组成这个立方体的三角形是按某种随机顺序绘制的. 较远的像素点应该在较近的像素点之前绘制. 现在这不会发生, 除非我们进一步测试下去.
 
-This can be done in the `Window` class at the end of the `init` method:
+这可以在 `init` 方法结尾的 `Window` 类中实现.
 
 ```java
 glEnable(GL_DEPTH_TEST);
 ```
 
-Now our cube is being rendered correctly!
+我们的立方体现在被成功地渲染了!
 
 ![Cube with depth test](cube_depth_test.png)
 
-If you see the code for this part of the chapter you may see that we have done a minor reorganization in the `Mesh` class. The identifiers of the VBOs are now stored in a list to easily iterate over them.
+如果你已经看过了这章的源代码, 你可能会发现我们已经在 `Mesh` 类中做了一个小小的重组. VBO 的标识符现在被存储在一个列表中, 以便我们轻松地遍历它们.
 
-## Adding texture to the cube
+## 向立方体添加材质
 
-Now we are going to apply a texture to our cube. A texture is an image which is used to draw the colour of the pixels of a certain model. You can think of a texture as a skin that is wrapped around your 3D model. What you do is assign points in the image texture to the vertices in your model. With that information OpenGL is able to calculate the colour to apply to the other pixels based on the texture image.
+现在,我们将要向立方体添加材质. 材质是一种绘制针对一个特定的模型的像素点的颜色的图像. 你可以吧材质看作是围绕着你的 3D 模型的皮肤. 你只需要将图像中的点指定给你的模型的顶点. 根据这些信息, OpenGL 就能够计算颜色, 并以材质图像作为基底来绘制像素点的图像.
+
 
 ![Texture mapping](texture_mapping.png)
 

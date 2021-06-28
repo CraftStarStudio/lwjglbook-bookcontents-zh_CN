@@ -30,7 +30,7 @@
 
 [![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5MH9AA9TPQQBN)（捐赠给原作者）
 
-[![Paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](#)（捐赠给翻译者）
+[捐赠给翻译者](https://afdian.net/@CraftStar_Studio)
 
 ## 欢迎评论
 
@@ -40,7 +40,7 @@
 
 著者：Antonio Hernández Bejarano
 
-译者：[WUTONK](https://github.com/WUTONK), [PencilCore](https://github.com/PencilCore)
+译者：[Cubik65536](https://github.com/Cubik65536), [PencilCore](https://github.com/PencilCore), [WUTONK](https://github.com/WUTONK)
 
 ## 特殊感谢
 

@@ -12,11 +12,11 @@
 图形管道由以下步骤组成：
 
 
-![Graphics Pipeline](rendering_pipeline.png)
+![Graphics Pipeline](./rendering_pipeline.png)
 
 但在OPENGL 2.0版本,其引入了可编程流水线渲染的概念.在这个模型中,组成图形管道的不同步骤可以通过一组称为“着色器”的特定程序来控制或编程.(可编程自定义渲染过程,而不是只能使用固定设置)下图描述了OpenGL可编程管道的简化版本:
 
-![Programmable pipeline](rendering_pipeline_2.png)
+![Programmable pipeline](./rendering_pipeline_2.png)
 
 
 渲染开始将顶点缓冲区形式的顶点列表作为其输入.但,什么是顶点?顶点是描述二维或三维空间中的点的数据结构.你该如何描述三维空间中的一个点?————通过指定其x、y和z坐标.那什么是顶点缓冲区?顶点缓冲区是另一种数据结构,它通过使用顶点数组,打包需要渲染的所有顶点,并使这些信息可供图形管道中的着色器使用.
@@ -266,7 +266,7 @@ float[] vertices = new float[]{
 
 下图描绘了我们坐标系中的三角形.
 
-![Triangle](triangle_coordinates.png)
+![Triangle](./triangle_coordinates.png)
 
 
 现在我们有了坐标,我们需要将它们存储到GPU中,并告诉OpenGL数据的结构.我们现在将介绍两个重要的概念,顶点数组对象\(VAOs\)和顶点缓冲区对象\(VBOs\).如果你在接下来的代码片段中迷失了方向,请记住,最后我们要做的是将要绘制的对象的模型数据发送到GPU的内存中.当我们存储它时,我们会得到一个标识符,以便稍后在绘图时引用它.
@@ -340,10 +340,10 @@ glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 完成VBO后,我们可以解除它和VAO的绑定\(将它们绑定到0\)
 
 ```java
-// Unbind the VBO 解除VBO绑定
+// 解除VBO绑定
 glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-// Unbind the VAO 关闭VAO
+// 关闭VAO
 glBindVertexArray(0);
 ```
 
@@ -370,13 +370,13 @@ public void render(Window window) {
 
     shaderProgram.bind();
 
-    // Bind to the VAO
+    // 绑定到VAO
     glBindVertexArray(vaoId);
 
-    // Draw the vertices
+    // 绘制顶点
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
-    // Restore state
+    // 还原状态
     glBindVertexArray(0);
 
     shaderProgram.unbind();
@@ -395,11 +395,11 @@ public void cleanup() {
 
     glDisableVertexAttribArray(0);
 
-    // Delete the VBO
+    // 删除VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDeleteBuffers(vboId);
 
-    // Delete the VAO
+    // 删除VAO
     glBindVertexArray(0);
     glDeleteVertexArrays(vaoId);
 }
@@ -407,7 +407,7 @@ public void cleanup() {
 
 这就是所有的操作!如果你仔细地遵循这些步骤,你将会看到以下内容:
 
-![Triangle game](triangle_window.png)
+![Triangle game](./triangle_window.png)
 
 
 这是我们的第一个三角形!你可能会认为这还没法变成一个很好的游戏....你是正确的.你也可能认为这些工作量太大,如此繁琐的操作,只是为了绘制一个无聊的三角形.但请记住,我们正在引入关键的概念,并准备基础基础架构来完成更复杂的任务,所以请耐心阅读下去吧;)
